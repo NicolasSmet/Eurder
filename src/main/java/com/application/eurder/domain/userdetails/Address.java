@@ -3,6 +3,8 @@ package com.application.eurder.domain.userdetails;
 import com.application.eurder.exceptions.FieldNotValidException;
 import com.application.eurder.validation.EmptyStringValidator;
 
+import java.util.Objects;
+
 public class Address {
     private final String street;
     private final String number;
@@ -64,5 +66,18 @@ public class Address {
     @Override
     public String toString() {
         return "Address: " + street + " " + number + " " + zipCode + " " + town;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(street, address.street) && Objects.equals(number, address.number) && Objects.equals(zipCode, address.zipCode) && Objects.equals(town, address.town);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, number, zipCode, town);
     }
 }

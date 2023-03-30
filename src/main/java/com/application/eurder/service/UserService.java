@@ -8,10 +8,10 @@ import com.application.eurder.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerService {
+public class UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
-    public CustomerService(UserRepository userRepository, UserMapper mapper){
+    public UserService(UserRepository userRepository, UserMapper mapper){
         this.repository = userRepository;
         this.mapper = mapper;
     }

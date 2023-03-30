@@ -4,6 +4,7 @@ import com.application.eurder.exceptions.EmailNotValidException;
 import com.application.eurder.exceptions.FieldNotValidException;
 import com.application.eurder.validation.EmptyStringValidator;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,5 +49,18 @@ public class ContactDetails {
         if (EmptyStringValidator.stringNullOrEmpty(phoneNumber)){
             throw new FieldNotValidException("phone number");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactDetails that = (ContactDetails) o;
+        return Objects.equals(email, that.email) && Objects.equals(address, that.address) && Objects.equals(phoneNumber, that.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, address, phoneNumber);
     }
 }

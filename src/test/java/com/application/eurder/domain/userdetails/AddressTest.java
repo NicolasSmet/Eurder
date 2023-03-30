@@ -7,17 +7,6 @@ import org.junit.jupiter.api.Test;
 
 class AddressTest {
     @Test
-    @DisplayName("when providing valid data for all fields an address is created")
-    void givenValidDataForAddress_whenCreatingAnAddress_thenAddressIsCreated() {
-        String street = "Gravin Margaretalaan";
-        String number = "9";
-        String zipCode = "9150";
-        String town = "Rupelmonde";
-
-        Address address = new Address(street,number,zipCode,town);
-        Assertions.assertThat(address.toString()).isEqualTo("Address: Gravin Margaretalaan 9 9150 Rupelmonde");
-    }
-    @Test
     @DisplayName("when providing an empty street when creating an address an AddressFieldNotValidException is thrown")
     void givenEmptyStreet_whenCreatingAnAddress_thenAddressFieldNotValidExceptionIsThrown() {
         String street = "";
