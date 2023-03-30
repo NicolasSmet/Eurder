@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class User {
     private final UUID id;
-    private String password;
+    private final String password;
     private final Name name;
     private final ContactDetails contactdetails;
     private final Role role;

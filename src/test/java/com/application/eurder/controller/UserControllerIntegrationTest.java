@@ -6,7 +6,6 @@ import com.application.eurder.domain.userdetails.ContactDetails;
 import com.application.eurder.domain.userdetails.Name;
 import com.application.eurder.dto.CreateUserDTO;
 import com.application.eurder.dto.UserDTO;
-import com.application.eurder.mapper.UserMapper;
 import com.application.eurder.repository.UserRepository;
 import com.application.eurder.security.Role;
 import io.restassured.RestAssured;
@@ -26,8 +25,6 @@ class UserControllerIntegrationTest {
 
     @Autowired
     private UserRepository repository;
-    @Autowired
-    private UserMapper mapper;
 
     @Test
     @DisplayName("When posting a user with valid data, the user can be found in the repository")
