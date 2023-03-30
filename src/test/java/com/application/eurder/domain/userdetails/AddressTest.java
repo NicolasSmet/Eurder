@@ -1,6 +1,6 @@
 package com.application.eurder.domain.userdetails;
 
-import com.application.eurder.exceptions.FieldNotValidException;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class AddressTest {
         String zipCode = "9150";
         String town = "Rupelmonde";
 
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Address(street,number,zipCode,town))
                 .withMessageContaining("street");
     }
@@ -26,7 +26,7 @@ class AddressTest {
         String zipCode = "9150";
         String town = "Rupelmonde";
 
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Address(street,number,zipCode,town))
                 .withMessageContaining("number");
     }
@@ -38,7 +38,7 @@ class AddressTest {
         String zipCode = "";
         String town = "Rupelmonde";
 
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Address(street,number,zipCode,town))
                 .withMessageContaining("zipcode");
     }
@@ -50,7 +50,7 @@ class AddressTest {
         String zipCode = "9150";
         String town = "";
 
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Address(street,number,zipCode,town))
                 .withMessageContaining(town);
     }
@@ -62,7 +62,7 @@ class AddressTest {
         String zipCode = "9150";
         String town = "Rupelmonde";
 
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Address(street,number,zipCode,town))
                 .withMessageContaining("street");
     }

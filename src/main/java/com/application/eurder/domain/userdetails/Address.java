@@ -1,7 +1,7 @@
 package com.application.eurder.domain.userdetails;
 
-import com.application.eurder.exceptions.FieldNotValidException;
-import com.application.eurder.validation.EmptyStringValidator;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
+import com.application.eurder.validation.NullOrEmptyValidator;
 
 import java.util.Objects;
 
@@ -40,26 +40,26 @@ public class Address {
     }
 
     public void validateStreet(String street) {
-        if (EmptyStringValidator.stringNullOrEmpty(street)) {
-            throw new FieldNotValidException("street");
+        if (NullOrEmptyValidator.stringNullOrEmpty(street)) {
+            throw new FieldNullOrEmptyException("street");
         }
     }
 
     public void validateNumber(String number) {
-        if (EmptyStringValidator.stringNullOrEmpty(number)) {
-            throw new FieldNotValidException("number");
+        if (NullOrEmptyValidator.stringNullOrEmpty(number)) {
+            throw new FieldNullOrEmptyException("number");
         }
     }
 
     public void validateZipcode(String zipCode) {
-        if (EmptyStringValidator.stringNullOrEmpty(zipCode)) {
-            throw new FieldNotValidException("zipcode");
+        if (NullOrEmptyValidator.stringNullOrEmpty(zipCode)) {
+            throw new FieldNullOrEmptyException("zipcode");
         }
     }
 
     public void validateTown(String town) {
-        if (EmptyStringValidator.stringNullOrEmpty(town)) {
-            throw new FieldNotValidException("town");
+        if (NullOrEmptyValidator.stringNullOrEmpty(town)) {
+            throw new FieldNullOrEmptyException("town");
         }
     }
 

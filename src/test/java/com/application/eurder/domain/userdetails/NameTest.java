@@ -1,6 +1,6 @@
 package com.application.eurder.domain.userdetails;
 
-import com.application.eurder.exceptions.FieldNotValidException;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class NameTest {
         String lastName = "Smet";
         //WHEN
         //THEN
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Name(firstName,lastName))
                 .withMessageContaining("first name");
     }
@@ -38,7 +38,7 @@ class NameTest {
         String lastName = "";
         //WHEN
         //THEN
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Name(firstName,lastName))
                 .withMessageContaining("last name");
     }
@@ -50,7 +50,7 @@ class NameTest {
         String lastName = "Smet";
         //WHEN
         //THEN
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Name(firstName,lastName))
                 .withMessageContaining("first name");
     }
@@ -62,7 +62,7 @@ class NameTest {
         String lastName = null;
         //WHEN
         //THEN
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Name(firstName,lastName))
                 .withMessageContaining("last name");
     }

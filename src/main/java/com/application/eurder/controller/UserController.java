@@ -2,6 +2,7 @@ package com.application.eurder.controller;
 
 import com.application.eurder.dto.CreateUserDTO;
 import com.application.eurder.dto.UserDTO;
+import com.application.eurder.exceptions.EmailNotUniqueException;
 import com.application.eurder.exceptions.EmailNotValidException;
 import com.application.eurder.exceptions.RoleNotValidException;
 import com.application.eurder.service.UserService;
@@ -26,6 +27,10 @@ public class UserController {
 
     @ExceptionHandler(EmailNotValidException.class)
     public void emailNotValidException(EmailNotValidException ex, HttpServletResponse response) throws IOException{
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST,ex.getMessage());
+    }
+    @ExceptionHandler(EmailNotUniqueException.class)
+    public void emailNotUniqueException(EmailNotUniqueException ex, HttpServletResponse response) throws IOException{
         response.sendError(HttpServletResponse.SC_BAD_REQUEST,ex.getMessage());
     }
     @ExceptionHandler(RoleNotValidException.class)

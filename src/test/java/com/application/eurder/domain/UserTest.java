@@ -3,7 +3,7 @@ package com.application.eurder.domain;
 import com.application.eurder.domain.userdetails.Address;
 import com.application.eurder.domain.userdetails.ContactDetails;
 import com.application.eurder.domain.userdetails.Name;
-import com.application.eurder.exceptions.FieldNotValidException;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
 import com.application.eurder.exceptions.RoleNotValidException;
 import com.application.eurder.security.Role;
 import org.assertj.core.api.Assertions;
@@ -19,14 +19,14 @@ class UserTest {
     @DisplayName("When the password is empty a FieldNotValidException is thrown")
     void givenEmptyPassword_whenCreatingUser_thenFieldNotValidExceptionIsThrown() {
         String password = "";
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new User(password,validName,validContactDetails,Role.CUSTOMER));
     }
     @Test
     @DisplayName("When the password is null a FieldNotValidException is thrown")
     void givenNullPassword_whenCreatingUser_thenFieldNotValidExceptionIsThrown() {
         String password = null;
-        Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+        Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new User(password,validName,validContactDetails,Role.CUSTOMER));
     }
     @Test

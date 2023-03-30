@@ -1,8 +1,8 @@
 package com.application.eurder.domain.userdetails;
 
 import com.application.eurder.exceptions.EmailNotValidException;
-import com.application.eurder.exceptions.FieldNotValidException;
-import com.application.eurder.validation.EmptyStringValidator;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
+import com.application.eurder.validation.NullOrEmptyValidator;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -46,8 +46,8 @@ public class ContactDetails {
         return matcher.matches();
     }
     public void checkPhoneNumber(String phoneNumber){
-        if (EmptyStringValidator.stringNullOrEmpty(phoneNumber)){
-            throw new FieldNotValidException("phone number");
+        if (NullOrEmptyValidator.stringNullOrEmpty(phoneNumber)){
+            throw new FieldNullOrEmptyException("phone number");
         }
     }
 

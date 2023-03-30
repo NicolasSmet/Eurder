@@ -8,6 +8,7 @@ import com.application.eurder.dto.CreateUserDTO;
 import com.application.eurder.dto.UserDTO;
 import com.application.eurder.repository.UserRepository;
 import com.application.eurder.security.Role;
+import com.application.eurder.service.UserService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.assertj.core.api.Assertions;
@@ -17,14 +18,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class UserControllerIntegrationTest {
     @LocalServerPort
     private int port;
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private UserService service;
 
     @Test
     @DisplayName("When posting a user with valid data, the user can be found in the repository")
@@ -158,7 +163,7 @@ class UserControllerIntegrationTest {
                     }
                 }""";
 
-        String test = RestAssured
+        String body = RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .body(testJson)
@@ -172,6 +177,33 @@ class UserControllerIntegrationTest {
                 .response()
                 .asString();
 
-        Assertions.assertThat(test).contains("You did not specify a role: a role can either be CUSTOMER or ADMIN.");
+        Assertions.assertThat(body).contains("You did not specify a role: a role can either be CUSTOMER or ADMIN.");
+    }
+    @Test
+    @DisplayName("When posting a new user with an email address that is not unique, an EmailNotUniqueException is thrown")
+    void whenPostNewUserWithNotUniqueEmail_thenEmailNotUniqueExceptionIsThrown() {
+        Address validAddress = new Address("Gravin Margaretalaan", "9", "9150", "Rupelmonde");
+        ContactDetails validContactDetails = new ContactDetails("nicolassmet2@gmail.com", validAddress, "0472454710");
+        Name validName = new Name("Nicolas","Smet");
+
+        CreateUserDTO newUser = new CreateUserDTO("test",validContactDetails,validName,Role.CUSTOMER);
+
+        service.create(newUser);
+
+        String body = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .body(newUser)
+                .when()
+                .port(port)
+                .post("/customer")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .extract()
+                .response()
+                .asString();
+
+        Assertions.assertThat(body).contains("The provided email address is not unique. Please provide a unique email address.");
     }
 }

@@ -2,11 +2,11 @@ package com.application.eurder.domain;
 
 import com.application.eurder.domain.userdetails.ContactDetails;
 import com.application.eurder.domain.userdetails.Name;
-import com.application.eurder.exceptions.FieldNotValidException;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
 import com.application.eurder.exceptions.RoleNotValidException;
 import com.application.eurder.security.Feature;
 import com.application.eurder.security.Role;
-import com.application.eurder.validation.EmptyStringValidator;
+import com.application.eurder.validation.NullOrEmptyValidator;
 
 import java.util.UUID;
 
@@ -49,8 +49,8 @@ public class User {
     }
 
     public void checkPassword(String password) {
-        if (EmptyStringValidator.stringNullOrEmpty(password)) {
-            throw new FieldNotValidException("password");
+        if (NullOrEmptyValidator.stringNullOrEmpty(password)) {
+            throw new FieldNullOrEmptyException("password");
         }
     }
     public void checkRole(Role role){

@@ -1,7 +1,7 @@
 package com.application.eurder.domain.userdetails;
 
-import com.application.eurder.exceptions.FieldNotValidException;
-import com.application.eurder.validation.EmptyStringValidator;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
+import com.application.eurder.validation.NullOrEmptyValidator;
 
 import java.util.Objects;
 
@@ -17,13 +17,13 @@ public class Name {
         this.lastName = lastName;
     }
     private void checkfirstName(String firstName){
-        if (EmptyStringValidator.stringNullOrEmpty(firstName)){
-            throw new FieldNotValidException("first name");
+        if (NullOrEmptyValidator.stringNullOrEmpty(firstName)){
+            throw new FieldNullOrEmptyException("first name");
         }
     }
     private void checkLastName(String lastName){
-        if (EmptyStringValidator.stringNullOrEmpty(lastName)){
-            throw new FieldNotValidException("last name");
+        if (NullOrEmptyValidator.stringNullOrEmpty(lastName)){
+            throw new FieldNullOrEmptyException("last name");
         }
     }
 

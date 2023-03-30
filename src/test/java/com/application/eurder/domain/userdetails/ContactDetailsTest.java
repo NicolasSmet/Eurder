@@ -1,7 +1,7 @@
 package com.application.eurder.domain.userdetails;
 
 import com.application.eurder.exceptions.EmailNotValidException;
-import com.application.eurder.exceptions.FieldNotValidException;
+import com.application.eurder.exceptions.FieldNullOrEmptyException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -89,7 +89,7 @@ class ContactDetailsTest {
             String phoneNumber = "";
             //WHEN
             //THEN
-            Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+            Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                     .isThrownBy(() -> new ContactDetails(validEmail,validAddress,phoneNumber))
                     .withMessageContaining("phone number");
         }
@@ -100,7 +100,7 @@ class ContactDetailsTest {
             String phoneNumber = null;
             //WHEN
             //THEN
-            Assertions.assertThatExceptionOfType(FieldNotValidException.class)
+            Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                     .isThrownBy(() -> new ContactDetails(validEmail,validAddress,phoneNumber))
                     .withMessageContaining("phone number");
         }
