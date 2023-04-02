@@ -1,6 +1,6 @@
 package com.application.eurder.domain.userdetails;
 
-import com.application.eurder.exceptions.EmailNotValidException;
+import com.application.eurder.exceptions.FieldFormatNotValidException;
 import com.application.eurder.exceptions.FieldNullOrEmptyException;
 import com.application.eurder.validation.NullOrEmptyValidator;
 
@@ -36,7 +36,7 @@ public class ContactDetails {
 
     public void checkEmailFormat(String email){
         if(email == null || !isValidEmail(email)){
-            throw new EmailNotValidException();
+            throw new FieldFormatNotValidException("email");
         }
     }
 

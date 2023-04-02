@@ -26,11 +26,12 @@ public class ItemControllerIntegrationTest {
     @DisplayName("When posting an item with valid data, the item can be found in the itemrepository")
     void whenPostNewItem_thenRepositoryContainsNewItem() {
 
-        CreateItemDTO newItem = new CreateItemDTO("new item","A new item for our shop",12.3, 5);
+        CreateItemDTO newItem = new CreateItemDTO("new item", "A new item for our shop", 12.3, 5);
 
         ItemDTO createdItem = RestAssured
                 .given()
                 .contentType(ContentType.JSON)
+                .header("Authorization","Basic QWRtaW5AZ21haWwuY29tOlRlc3Q=")
                 .body(newItem)
                 .log().all()
                 .when()
@@ -47,6 +48,94 @@ public class ItemControllerIntegrationTest {
         Assertions.assertThat(repository.getAll().size()).isEqualTo(1);
         Assertions.assertThat(repository.getById(createdItem.getId()))
                 .extracting(Item::getName, Item::getDescription, Item::getPrice)
-                .containsExactly(newItem.getName(),newItem.getDescription(),newItem.getPrice());
+                .containsExactly(newItem.getName(), newItem.getDescription(), newItem.getPrice());
+    }
+
+    @Test
+    @DisplayName("When posting an item with an empty name a FieldNotValidException is thrown and a bad request is returned")
+    void whenPostNewItemEmptyName_thenFieldNotValidExceptionIsThrownAnd400Returned() {
+
+        String testJson = """
+                {
+                    "name" : null,
+                    "description" : "a new item for our shop",
+                    "price" : 12.3,
+                    "amount" : 5
+                }""";
+
+        String test = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .header("Authorization","Basic QWRtaW5AZ21haWwuY29tOlRlc3Q=")
+                .body(testJson)
+                .when()
+                .port(port)
+                .post("/item")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .extract()
+                .response()
+                .asString();
+
+        Assertions.assertThat(test).contains("item name can't be empty");
+    }
+    @Test
+    @DisplayName("When posting an item as an unknown user a UserUnknownException is thrown and forbidden is returned")
+    void whenPostNewItemAsUnknownUser_thenUserUnknownExceptionIsThrownAnd403Returned() {
+
+        String testJson = """
+                {
+                    "name" : null,
+                    "description" : "a new item for our shop",
+                    "price" : 12.3,
+                    "amount" : 5
+                }""";
+
+        String test = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .header("Authorization","Basic dGVzdEBnbWFpbC5jb206VGVzdA==")
+                .body(testJson)
+                .when()
+                .port(port)
+                .post("/item")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.FORBIDDEN.value())
+                .extract()
+                .response()
+                .asString();
+
+        Assertions.assertThat(test).contains("The provided user is not known, please provide a known user.");
+    }
+    @Test
+    @DisplayName("When posting an item as an invalid authorization format a FieldFormatNotValidException is thrown and forbidden is returned")
+    void whenPostNewItemWithInvalidAuthorization_thenFieldNullOrEmptyExceptionIsThrownAnd403Returned() {
+
+        String testJson = """
+                {
+                    "name" : null,
+                    "description" : "a new item for our shop",
+                    "price" : 12.3,
+                    "amount" : 5
+                }""";
+
+        String test = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "test1234")
+                .body(testJson)
+                .when()
+                .port(port)
+                .post("/item")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.FORBIDDEN.value())
+                .extract()
+                .response()
+                .asString();
+
+        Assertions.assertThat(test).contains("authorization was not formatted properly");
     }
 }

@@ -53,7 +53,6 @@ class UserControllerIntegrationTest {
                 .extract()
                 .as(UserDTO.class);
 
-        Assertions.assertThat(repository.getAll().size()).isEqualTo(1);
         Assertions.assertThat(repository.getById(createdUser.id()))
                 .extracting(User::getContactdetails,User::getName)
                 .containsExactly(newUser.contactDetails(),newUser.name());
@@ -96,7 +95,7 @@ class UserControllerIntegrationTest {
                 .response()
                 .asString();
 
-        Assertions.assertThat(test).contains("Given email is not valid.");
+        Assertions.assertThat(test).contains("email was not formatted properly");
     }
 
 
@@ -138,7 +137,7 @@ class UserControllerIntegrationTest {
                 .response()
                 .asString();
 
-        Assertions.assertThat(test).contains("Field number can't be empty.");
+        Assertions.assertThat(test).contains("number can't be empty.");
     }
     @Test
     @DisplayName("When posting a user with no role a RoleNotValidExceptions is thrown and a bad request returned")

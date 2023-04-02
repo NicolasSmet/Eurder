@@ -1,6 +1,6 @@
 package com.application.eurder.domain.userdetails;
 
-import com.application.eurder.exceptions.EmailNotValidException;
+import com.application.eurder.exceptions.FieldFormatNotValidException;
 import com.application.eurder.exceptions.FieldNullOrEmptyException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +38,7 @@ class ContactDetailsTest {
         void givenAnInValidEmailAddress_whenCreatingContactDetails_thenEmailNotValidExceptionIsThrown() {
             String email = "invalid";
 
-            Assertions.assertThatExceptionOfType(EmailNotValidException.class).isThrownBy(() -> new ContactDetails(email, validAddress, validPhoneNumber));
+            Assertions.assertThatExceptionOfType(FieldFormatNotValidException.class).isThrownBy(() -> new ContactDetails(email, validAddress, validPhoneNumber));
         }
 
         @Test
@@ -46,7 +46,7 @@ class ContactDetailsTest {
         void givenEmptyEmailAddress_whenCreatingContactDetails_thenEmailNotValidExceptionIsThrown() {
             String email = "";
 
-            Assertions.assertThatExceptionOfType(EmailNotValidException.class).isThrownBy(() -> new ContactDetails(email, validAddress, validPhoneNumber));
+            Assertions.assertThatExceptionOfType(FieldFormatNotValidException.class).isThrownBy(() -> new ContactDetails(email, validAddress, validPhoneNumber));
         }
 
         @Test
@@ -54,7 +54,7 @@ class ContactDetailsTest {
         void givenNullForEmail_whenCreatingContactDetails_thenEmailNotValidExceptionIsThrown() {
             String email = null;
 
-            Assertions.assertThatExceptionOfType(EmailNotValidException.class).isThrownBy(() -> new ContactDetails(email, validAddress, validPhoneNumber));
+            Assertions.assertThatExceptionOfType(FieldFormatNotValidException.class).isThrownBy(() -> new ContactDetails(email, validAddress, validPhoneNumber));
         }
     }
 

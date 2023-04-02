@@ -3,7 +3,7 @@ package com.application.eurder.controller;
 import com.application.eurder.dto.CreateUserDTO;
 import com.application.eurder.dto.UserDTO;
 import com.application.eurder.exceptions.EmailNotUniqueException;
-import com.application.eurder.exceptions.EmailNotValidException;
+import com.application.eurder.exceptions.FieldFormatNotValidException;
 import com.application.eurder.exceptions.RoleNotValidException;
 import com.application.eurder.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,8 +25,8 @@ public class UserController {
         return userService.create(newUser);
     }
 
-    @ExceptionHandler(EmailNotValidException.class)
-    public void emailNotValidException(EmailNotValidException ex, HttpServletResponse response) throws IOException{
+    @ExceptionHandler(FieldFormatNotValidException.class)
+    public void emailNotValidException(FieldFormatNotValidException ex, HttpServletResponse response) throws IOException{
         response.sendError(HttpServletResponse.SC_BAD_REQUEST,ex.getMessage());
     }
     @ExceptionHandler(EmailNotUniqueException.class)

@@ -19,7 +19,7 @@ public class ItemTest {
 
         Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Item(name,validDescription,validPrice,validAmount))
-                .withMessageContaining("Field item name can't be empty");
+                .withMessageContaining("item name can't be empty");
     }
     @Test
     @DisplayName("Creating item with empty description throws a FieldNullOrEmptyException")
@@ -28,7 +28,7 @@ public class ItemTest {
 
         Assertions.assertThatExceptionOfType(FieldNullOrEmptyException.class)
                 .isThrownBy(() -> new Item(validName,description,validPrice,validAmount))
-                .withMessageContaining("Field description can't be empty");
+                .withMessageContaining("description can't be empty");
     }
     @Test
     @DisplayName("Creating item with price zero or less than zero throws a FieldZeroOrLessThanZeroException")
@@ -37,7 +37,7 @@ public class ItemTest {
 
         Assertions.assertThatExceptionOfType(FieldZeroOrLessThanZeroException.class)
                 .isThrownBy(() -> new Item(validName,validDescription,price,validAmount))
-                .withMessageContaining("Field price can't be zero or less than zero");
+                .withMessageContaining("price can't be zero or less than zero");
     }
     @Test
     @DisplayName("Creating item with amount zero or less than zero throws a FieldZeroOrLessThanZeroException")
@@ -46,6 +46,6 @@ public class ItemTest {
 
         Assertions.assertThatExceptionOfType(FieldZeroOrLessThanZeroException.class)
                 .isThrownBy(() -> new Item(validName,validDescription,validPrice,amount))
-                .withMessageContaining("Field amount can't be zero or less than zero");
+                .withMessageContaining("amount can't be zero or less than zero");
     }
 }

@@ -8,7 +8,7 @@ import com.application.eurder.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ItemService {
+public class ItemService{
 
     private final ItemRepository itemRepository;
     private final ItemMapper mapper;
